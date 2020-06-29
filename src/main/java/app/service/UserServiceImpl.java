@@ -1,6 +1,8 @@
 package app.service;
 
+import app.entity.Role;
 import app.entity.User;
+import app.repository.RoleRepository;
 import app.repository.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private RoleRepository roleDAO;
 
     @Override
     public void addUser(User user) {
@@ -39,4 +44,10 @@ public class UserServiceImpl implements UserService{
     public User getUser(Long id) {
         return userDAO.get(id);
     }
+
+    @Override
+    public Role getByName(String name) {
+        return roleDAO.getByName(name);
+    }
+
 }

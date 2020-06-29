@@ -1,5 +1,6 @@
 package app.service;
 
+import app.entity.Role;
 import app.entity.User;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface UserService {
     void deleteUser(Long id);
     void update(User user);
     User getUser(Long id);
+    Role getByName(String name);
 }

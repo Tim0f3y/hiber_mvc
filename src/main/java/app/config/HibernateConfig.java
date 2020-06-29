@@ -1,5 +1,6 @@
 package app.config;
 
+import app.entity.Role;
 import app.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +48,7 @@ public class HibernateConfig {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
         sessionFactoryBean.setHibernateProperties(properties());
-        sessionFactoryBean.setAnnotatedClasses(User.class);//TODO ENTER USER CLASS
+        sessionFactoryBean.setAnnotatedClasses(User.class, Role.class);//TODO ENTER USER CLASS
         return sessionFactoryBean;
     }
 

@@ -10,7 +10,7 @@
     <form:form action="update" method="post" modelAttribute="editUser">
         <table>
             <tr>
-                <td>ID: </td>
+                <td>ID Пользователя: </td>
                 <td>${editUser.id}
                     <form:hidden path="id"/>
                 </td>
@@ -24,11 +24,22 @@
                 <td><form:input path="last" /></td>
             </tr>
             <tr>
-                <td>Роль: </td>
-                <td><form:input path="role" /></td>
+                <td>Логин: </td>
+                <td><form:input path="login" /></td>
+            </tr>
+
+            <tr>
+                <td>Пароль: </td>
+                <td><form:input path="password" /></td>
+            </tr>
+
+            <tr>
+                <td>Роль:</td>
+                <td><input type="checkbox" name="option" value="ROLE_ADMIN">Администратор<Br>
+                    <input type="checkbox" name="option" value="ROLE_USER">Пользователь<Br></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="Save"></td>
+                <td colspan="2"><input type="submit" value="Сохранить"></td>
             </tr>
         </table>
     </form:form>

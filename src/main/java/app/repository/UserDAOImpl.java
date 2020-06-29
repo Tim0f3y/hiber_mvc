@@ -32,20 +32,20 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User get(Long id) {
-        List<User> user = sessionFactory.getCurrentSession().createQuery("from User where id=:id")
-                .setParameter("id", id).list();
-        return (!user.isEmpty()) ? user.get(0) : null;
+    public User get(Long id)  {
+        return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
-    @Override
-    public void delete(Long id) {
-        sessionFactory.getCurrentSession().createQuery("delete from User where id = :id")
-                .setParameter("id", id).executeUpdate();
-    }
 
     @Override
     public void update(User user) {
         sessionFactory.getCurrentSession().update(user);
+    }
+
+    @Override
+    public User getUserByName(String login) {
+        return (User) sessionFactory.openSession().createQuery("from User where login = :login")
+                .setParameter("login", login)
+                .getSingleResult();
     }
 }
