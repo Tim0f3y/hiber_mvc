@@ -30,9 +30,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public User get(Long id) {
-        List<User> user = sessionFactory.getCurrentSession().createQuery("from User where id=:id")
+        List<User> user = sessionFactory.getCurrentSession().createQuery("from User where id=:id",User.class)
                 .setParameter("id", id).list();
         return (!user.isEmpty()) ? user.get(0) : null;
     }
