@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Admin panel</title>
+</head>
+<body>
+<!-- general container -->
+<div class="container-fluid p-0 m-0">
+    <header>
+        <div class="d-flex justify-content-between bg-dark text-white">
+            <div class="p-2">
+                <span th:text="${user.login}+' with roles:'"></span>
+                <span th:text="${user.role}"></span>
+            </div>
+            <div class="p-2">
+                <button onclick="location.href='/logout'" type="button" class="btn btn-dark">Logout</button>
+            </div>
+        </div>
+        <div class="container-fluid w-100">
+            <br>
+        </div>
+    </header>
+    <!-- container of the main part-->
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="user-tab" data-toggle="pill" href="#user-home" role="tab"
+                       aria-controls="admin-home" aria-selected="true">User</a>
+                </div>
+            </div>
+            <!-- main content's container -->
+            <div class="col-md-10 content">
+                <h1>User information-page</h1>
+                <div class="tab-content" id="admin-user-tabContent">
+                    <div class="tab-pane fade show active" id="user-home" role="tabpanel"
+                         aria-labelledby="user-tab">
+                        <div class="container-fluid border">
+                            <div class="row bg-light border">
+                                <h4>About user</h4>
+                            </div>
+                            <br>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user: ${list}">
+                                    <th scope="row"><span th:text="${user.getId()}">id</span></th>
+                                    <td><span th:text="${user.getName()}">name</span></td>
+                                    <td><span th:text="${user.getLast()}">last</span></td>
+                                    <td><span th:text="${user.getAge()}">age</span></td>
+                                    <td><span th:text="${user.getLogin()}">email</span></td>
+                                    <td><span th:text="${user.getRole()}">role</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

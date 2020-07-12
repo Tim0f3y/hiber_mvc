@@ -19,7 +19,6 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
-@ComponentScan(value = "app")
 public class HibernateConfig {
 
     @Autowired

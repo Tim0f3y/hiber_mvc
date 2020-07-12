@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RoleRepositroyImpl implements RoleRepository {
+public class RoleRepositoryImpl implements RoleRepository {
     @Autowired
     private SessionFactory sessionFactory;
 

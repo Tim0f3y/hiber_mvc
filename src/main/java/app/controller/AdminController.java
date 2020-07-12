@@ -4,12 +4,11 @@ import app.entity.Role;
 import app.entity.User;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import java.util.*;
 
 @Controller
@@ -20,18 +19,13 @@ public class AdminController {
     private UserService service;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String indexPage(ModelMap modelMap){
+    public String indexPage(ModelMap modelMap, @AuthenticationPrincipal User user){
         List<User> list = service.getAllUsers();
         modelMap.addAttribute("list", list);
+        modelMap.addAttribute("user", user);
         return "index";
     }
 
-    @RequestMapping("add")
-    public String addUser(Map<String, Object> model) {
-        User user = new User();
-        model.put("user", user);
-        return "adduser";
-    }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("users") User user, @RequestParam("option") String role) {
@@ -67,14 +61,6 @@ public class AdminController {
         user.setRole(roleSet);
         service.update(user);
         return "redirect:/admin/";
-    }
-
-    @RequestMapping("updateuser")
-    public ModelAndView editUser(@RequestParam Long id) {
-        ModelAndView view = new ModelAndView("updateuser");
-        User user = service.getUser(id);
-        view.addObject("editUser", user);
-        return view;
     }
 
     @RequestMapping("delete")

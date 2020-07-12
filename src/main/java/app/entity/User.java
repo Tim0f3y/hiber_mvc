@@ -25,18 +25,29 @@ public class User implements UserDetails {
 
     private String password;
 
+    private Integer age;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> role;
 
-    public User(String name, String last, String password, String login, Set<Role> role) {
+    public User(String name, String last,Integer age, String password, String login, Set<Role> role) {
         this.name = name;
         this.last = last;
+        this.age = age;
         this.role = role;
         this.login = login;
         this.password = password;
     }
 
     public User() {
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Long getId() {
