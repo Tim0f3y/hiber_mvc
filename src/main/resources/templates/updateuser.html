@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit User</title>
+</head>
+<body>
+<div align="center">
+    <h2>Изменить пользователя</h2>
+    <form th:action="@{/admin/update}" method="post" th:object="${editUser}">
+        <div class="form-group">
+            <label th:for="${editUser.id}"><b>ID</b></label>
+            <input type="text" th:id="${editUser.id}"
+                   name="id" th:value="${editUser.id}"
+                   class="form-control"
+                   readonly="readonly"/>
+        </div>
+
+        <div class="form-group">
+            <label th:for="${editUser.id}"><b>First
+                name</b></label>
+            <input type="text"
+                   th:id="${editUser.id}"
+                   name="name"
+                   th:value="${editUser.name}"
+                   class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label th:for="${editUser.id}"><b>Last
+                name</b></label>
+            <input type="text"
+                   th:id="${editUser.id}"
+                   name="last"
+                   th:value="${editUser.last}"
+                   class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label th:for="${editUser.id}"><b>Login</b></label>
+            <input type="email"
+                   th:id="${editUser.id}"
+                   name="login" th:value="${editUser.login}"
+                   class="form-control" required/>
+        </div>
+
+
+        <div class="form-group">
+            <label th:for="${editUser.id}"><b>Password</b></label>
+            <input type="text"
+                   th:id="${editUser.id}"
+                   name="password"
+                   th:value="${editUser.password}"
+                   class="form-control" required/>
+        </div>
+
+        <div class="form-group text-center">
+            <label th:for="${editUser.id}"
+                   class="font-weight-bold">Role</label>
+            <select class="form-control custom-select"
+                    size="2"
+                    th:id="${editUser.id}"
+                    multiple name="option" required>
+                <option th:value="ROLE_ADMIN">ADMIN
+                </option>
+                <option th:value="ROLE_USER">USER
+                </option>
+            </select>
+        </div>
+
+
+        <div class="modal-footer">
+            <button onclick="location.href='/admin/'">Сlose</button>
+            <button type="submit"
+                    class="btn btn-primary">Edit
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

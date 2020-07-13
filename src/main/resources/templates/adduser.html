@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add User</title>
+</head>
+<body>
+<div align="center">
+    <h2>Новый пользователь</h2>
+    <form th:action="@{/admin/save}" method="post" th:object="${user}">
+        <div class="form-group">
+            <label th:for="${user.id}"><b>First
+                name</b></label>
+            <input type="text"
+                   th:id="${user.id}"
+                   name="name"
+                   th:value="${user.name}"
+                   class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label th:for="${user.id}"><b>Last
+                name</b></label>
+            <input type="text"
+                   th:id="${user.id}"
+                   name="last"
+                   th:value="${user.last}"
+                   class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label th:for="${user.id}"><b>Login</b></label>
+            <input type="email"
+                   th:id="${user.id}"
+                   name="login" th:value="${user.login}"
+                   class="form-control" required/>
+        </div>
+
+
+        <div class="form-group">
+            <label th:for="${user.id}"><b>Password</b></label>
+            <input type="text"
+                   th:id="${user.id}"
+                   name="password"
+                   th:value="${user.password}"
+                   class="form-control" required/>
+        </div>
+
+        <div class="form-group text-center">
+            <label th:for="${user.id}"
+                   class="font-weight-bold">Role</label>
+            <select class="form-control custom-select"
+                    size="2"
+                    th:id="${user.id}"
+                    multiple name="option" required>
+                <option th:value="ROLE_ADMIN">ADMIN
+                </option>
+                <option th:value="ROLE_USER">USER
+                </option>
+            </select>
+        </div>
+
+
+        <div class="modal-footer">
+            <button onclick="location.href='/admin/'">Сlose</button>
+            <button type="submit"
+                    class="btn btn-primary">Add user
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
