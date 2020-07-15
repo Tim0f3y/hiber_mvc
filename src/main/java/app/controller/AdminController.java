@@ -4,7 +4,6 @@ import app.entity.Role;
 import app.entity.User;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -77,7 +76,7 @@ public class AdminController {
         return view;
     }
 
-    @RequestMapping("delete")
+    @RequestMapping(value ="delete")
     public String deleteUser(@RequestParam Long id) {
         service.deleteUser(id);
         return "redirect:/admin/";

@@ -1,5 +1,6 @@
 package app.config;
 
+import app.config.handler.LoginSuccessHandler;
 import app.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
+
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -56,11 +58,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 // защищенные URL
                 .and()
+
                 .authorizeRequests()
-                .antMatchers("/admin/*").access("hasAuthority('ROLE_ADMIN')")
+                .antMatchers("/admin/**").access("hasAuthority('ROLE_ADMIN')")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/*").access("hasAuthority('ROLE_USER')")
+                .antMatchers("/user/**").access("hasAuthority('ROLE_USER')")
                 .anyRequest().authenticated();
     }
 
@@ -68,4 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
+
+
 }

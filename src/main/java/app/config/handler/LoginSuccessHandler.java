@@ -1,4 +1,4 @@
-package app.config;
+package app.config.handler;
 
 import app.entity.Role;
 import app.entity.User;
