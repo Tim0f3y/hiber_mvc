@@ -1,5 +1,6 @@
 package app.config;
 
+import app.config.handler.LoginSuccessHandler;
 import app.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

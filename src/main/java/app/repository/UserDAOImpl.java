@@ -5,45 +5,53 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public void addUser(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        entityManager.persist(user);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return sessionFactory.getCurrentSession().createQuery("from User",User.class).list();
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override
-    public void deleteUser(Long id) {
-        sessionFactory.getCurrentSession().createQuery("delete from User where id = :id")
-                .setParameter("id", id).executeUpdate();
+    public void deleteUser(User user) {
+        entityManager.remove(user);
     }
 
     @Override
-    public User get(Long id)  {
-        return sessionFactory.getCurrentSession().get(User.class, id);
+    public User get(Long id) {
+        return entityManager.createQuery(
+                "SELECT u from User u WHERE u.id = :id", User.class).
+                setParameter("id", id).getSingleResult();
     }
 
 
     @Override
     public void update(User user) {
-        sessionFactory.getCurrentSession().update(user);
+        entityManager.merge(user);
     }
 
     @Override
     public User getUserByName(String login) {
-        return (User) sessionFactory.openSession().createQuery("from User where login = :login")
-                .setParameter("login", login)
-                .getSingleResult();
+        try {
+            return entityManager.createQuery("select usr from User usr where usr.login = :login", User.class)
+                    .setParameter("login", login)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 }

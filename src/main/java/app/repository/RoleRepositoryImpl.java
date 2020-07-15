@@ -5,29 +5,35 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
-    public Role getByName(String login) {
-        return (Role) sessionFactory.getCurrentSession().createQuery("from Role where role = :login")
-                .setParameter("login", login)
-                .getSingleResult();
+    public Role getByName(String name) {
+        try {
+            return entityManager.createQuery("select r from Role r where r.role = :name", Role.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Role> getAll() {
-        return sessionFactory.getCurrentSession().createStoredProcedureCall("from Role").getResultList();
+        return entityManager.createQuery("select r from Role r", Role.class).getResultList();
     }
-
 
     @Override
     public void addRole(Role role) {
-        sessionFactory.getCurrentSession().save(role);
+        entityManager.persist(role);
     }
 }
