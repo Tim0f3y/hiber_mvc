@@ -21,8 +21,10 @@ public class AdminController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String indexPage(ModelMap modelMap, @AuthenticationPrincipal User user){
         List<User> list = service.getAllUsers();
+        User newuser = new User();
         modelMap.addAttribute("list", list);
         modelMap.addAttribute("user", user);
+        modelMap.addAttribute("newuser", newuser);
         return "index";
     }
 
