@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,9 +29,9 @@ public class User implements UserDetails {
     private Integer age;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> role;
+    private List<Role> role;
 
-    public User(String name, String last,Integer age, String password, String login, Set<Role> role) {
+    public User(String name, String last,Integer age, String password, String login, List<Role> role) {
         this.name = name;
         this.last = last;
         this.age = age;
@@ -78,11 +79,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setRole(Set<Role> role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
 
-    public Set<Role> getRole() {
+    public List<Role> getRole() {
         return role;
     }
 

@@ -17,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
@@ -24,6 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
+
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,18 +56,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
                 .and().csrf().disable();
 
+
         http
-                // делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
-                // защищенные URL
+
+                .and()
+                .authorizeRequests()
+                .antMatchers("/static/js/**").permitAll()
+
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/**").permitAll()
+
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/*").access("hasAuthority('ROLE_ADMIN')")
+
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/*").access("hasAuthority('ROLE_USER')")
+                .antMatchers("/user/*").permitAll()
+
                 .anyRequest().authenticated();
     }
 
